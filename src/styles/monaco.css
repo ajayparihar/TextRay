@@ -1,0 +1,39 @@
+.monaco-highlight {
+  background-color: rgba(25, 118, 210, 0.25);
+  border-radius: 3px;
+  padding: 0 2px;
+  margin: 0 -2px;
+}
+
+/* Dark theme highlight */
+.monaco-editor.vs-dark .monaco-highlight {
+  background-color: rgba(144, 202, 249, 0.25);
+}
+
+/* Editor loading state */
+.monaco-editor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Custom scrollbar styles */
+.monaco-editor .monaco-scrollable-element > .scrollbar > .slider {
+  background: rgba(100, 100, 100, 0.4) !important;
+}
+
+.monaco-editor.vs-dark .monaco-scrollable-element > .scrollbar > .slider {
+  background: rgba(121, 121, 121, 0.4) !important;
+}
+
+/* Minimap styles */
+.monaco-editor .minimap-slider .minimap-slider-horizontal {
+  background: rgba(100, 100, 100, 0.2);
+}
+
+.monaco-editor.vs-dark .minimap-slider .minimap-slider-horizontal {
+  background: rgba(121, 121, 121, 0.2);
+} 
