@@ -302,8 +302,7 @@ const TextComparisonArea = memo(({
     
     try {
       // Add scroll listener
-      editor.onDidScrollChange((e: any) => {
-        console.log('Scroll event:', e.scrollTop, syncScroll); // Debug log
+      const scrollDisposable = editor.onDidScrollChange((e: any) => {
         if (syncScroll && onScroll && typeof onScroll === 'function') {
           requestAnimationFrame(() => {
             onScroll(e.scrollTop);
@@ -311,7 +310,7 @@ const TextComparisonArea = memo(({
         }
       });
 
-      // Configure Monaco Editor with error prevention
+      // Configure Monaco Editor
       monaco.editor.defineTheme('muiDark', {
         base: 'vs-dark',
         inherit: true,
@@ -344,8 +343,16 @@ const TextComparisonArea = memo(({
 
       // Set the theme immediately
       monaco.editor.setTheme(theme.palette.mode === 'dark' ? 'muiDark' : 'muiLight');
+
+      // Cleanup function
+      const cleanup = () => {
+        scrollDisposable.dispose();
+      };
+
+      // Add cleanup to component unmount
+      return cleanup;
     } catch (error) {
-      console.warn('Failed to define Monaco themes:', error);
+      console.warn('Failed to configure editor:', error);
     }
     
     setIsEditorReady(true);
@@ -719,7 +726,7 @@ const TextComparisonArea = memo(({
               {commonWordCount} common
             </span>
             <span>
-              {((commonWordCount / wordCount) * 100).toFixed(1)}% match
+              {wordCount > 0 ? `${((commonWordCount / wordCount) * 100).toFixed(1)}% match` : '0% match'}
             </span>
           </StatsContainer>
         </Fade>
